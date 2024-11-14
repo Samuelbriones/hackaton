@@ -98,18 +98,30 @@
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-end">
-
-      <a href="{% url 'Core:index'%}" class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Energia sostenibles</h1>
-      </a>
+      <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'Core:index' %}" style="background-color: black; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold;">
+          ActioMeta
+        </a>
+        <!-- Otros elementos de la barra de navegación -->
+      </nav>
+      
+      <style>
+        .navbar {
+          display: flex;
+          align-items: center;
+        }
+      
+        .navbar-brand {
+          margin-right: auto;
+        }
+      </style>
+      
+      
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:index'%}" class="active">Inicio</a></li>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:map'%}">Acceso energético</a></li>
-          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:fertilizante'%}">Energia Geotermica</a></li>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:team'%}">Team</a></li>
           <li><a href="#team"></a></li>
           {% comment %} <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -140,7 +152,85 @@
   <main class="main">
 
     {% block content %}
-
+    <!-- Contenido principal -->
+    <div class="container">
+      <div style="text-align: left; width: 100%; max-width: 1200px; margin: 0 auto;">
+        <h2 style="
+          color: #00A67E; 
+          margin-bottom: 2rem; 
+          font-size: 2rem;
+          font-weight: bold;
+          text-align: left;
+        ">
+          Analítica de la energía no<br>
+          renovable generada
+        </h2>
+    
+        <div style="
+          background-color: #f0f0f0;
+          padding: 1.2rem 1.5rem;
+          border-radius: 12px;
+          width: fit-content;
+          display: inline-block;
+        ">
+          <div style="margin-bottom: 0.5rem;">
+            <span style="color: #666; font-size: 0.9rem;">2024</span>
+          </div>
+    
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;">
+            <div>
+              <small style="color: #666; font-size: 0.75rem; line-height: 1.2;">
+                Energía no<br>renovable generada
+              </small>
+            </div>
+            <div style="
+              background-color: white;
+              padding: 0.4rem 1rem;
+              border-radius: 6px;
+              min-width: 60px;
+              text-align: center;
+            ">
+              <span style="font-weight: 600;">6.45</span>
+            </div>
+          </div>
+    
+          <button style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #e5e5e5;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+          ">
+            Ecuador
+            <i class="bi bi-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      .container {
+        margin-top: 2rem;
+        display: block !important;
+        text-align: left !important;
+      }
+      
+      @media (min-width: 768px) {
+        .container {
+          margin-top: 4rem;
+        }
+      }
+      
+      /* Anular estilos previos que puedan afectar al contenedor */
+      .container {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+      }
+    </style>
     {% endblock %}
     
   </main>
