@@ -36,14 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const dataMap = new Map(
         electricityData
           .filter(d => d.year === year)
-          .map(d => [d.entity, d.access_to_electricity])
+          .map(d => [d.entity, d])
       );
 
       if (geoJsonLayer) map.removeLayer(geoJsonLayer);
 
       geoJsonLayer = L.geoJson(geoData, {
         style: feature => {
-          const value = dataMap.get(feature.properties.name) || 0;
+          const countryData = dataMap.get(feature.properties.name);
+          const value = countryData ? countryData.access_to_electricity : 0;
           return {
             fillColor: colorScale(value).hex(),
             weight: 1,
@@ -53,11 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         onEachFeature: (feature, layer) => {
           layer.on('mouseover', function () {
-            const value = dataMap.get(feature.properties.name) || 0;
-            layer.bindTooltip(
-              `<strong style="color: black;">${feature.properties.name}</strong><br>Acceso a electricidad: <span style="color: black;">${value}%</span>`,
-              { sticky: true }
-            ).openTooltip();
+            const countryData = dataMap.get(feature.properties.name) || {};
+            const tooltipContent = `
+              <strong style="color: black;">${feature.properties.name}</strong><br>
+              Acceso a electricidad: <span style="color: black;">${countryData.access_to_electricity || 0}%</span><br>
+              Energía de fósiles: <span style="color: black;">${countryData.electricity_from_fossil_fuels || 0} TWh</span><br>
+              Energía nuclear: <span style="color: black;">${countryData.electricity_from_nuclear || 0} TWh</span><br>
+              Energías renovables: <span style="color: black;">${countryData.electricity_from_renewables || 0} TWh</span><br>
+              Emisiones de CO2: <span style="color: black;">${countryData.co2_emissions || 0} kt</span>
+            `;
+            layer.bindTooltip(tooltipContent, { sticky: true }).openTooltip();
             this.setStyle({
               weight: 2,
               color: '#333'
