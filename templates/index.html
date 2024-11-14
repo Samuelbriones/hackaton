@@ -90,6 +90,24 @@
       margin-bottom: 20px;
       color: #333;
     }
+
+    .custom-green {
+      color: #009970 !important;
+    }
+    
+    .bg-custom-gray {
+      background-color: #f0f0f0 !important;
+      border-radius: 15px !important; /* Bordes más redondeados para el contenedor */
+    }
+    
+    .custom-green-text {
+      color: #009970 !important;
+      font-weight: bold;
+    }
+  
+    .form-select {
+      border-radius: 10px !important; /* Bordes redondeados para el select */
+    }
   </style>
   
 </head>
@@ -141,6 +159,57 @@
 
     {% block content %}
 
+    <section class="container mt-5">
+      <div class="row">
+        <!-- Columna izquierda -->
+        <div class="col-md-6">
+          <h2 class="custom-green mb-4">Analítica de la energía no renovable generada</h2>
+          
+          <div class="bg-custom-gray p-4 shadow-sm">
+            <div class="mb-3">
+              <label class="d-block fw-bold mb-2">2020</label>
+              <select class="form-select" id="countrySelect">
+                <option value="Ecuador">Ecuador</option>
+              </select>
+            </div>
+            
+            <div class="mt-4">
+              <p class="text-muted mb-2">Energía no renovable generada (TWh)</p>
+              <h3 class="display-6 fw-bold">6.45</h3>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Columna derecha -->
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="py-4">
+            <p class="mb-4">
+              Con la producción del último año de 
+              <span class="custom-green-text">6.45</span> TWh en energía no renovable, 
+              se necesitarían <span class="custom-green-text">7</span> plantas fotovoltaicas 
+              de <span class="custom-green-text">450</span> hectáreas para generar esa 
+              cantidad de energía al año de forma limpia.
+            </p>
+    
+            <p class="mb-4">
+              El consumo de 1 TWh equivale a iluminar 
+              <span class="custom-green-text">830,000</span> hogares en América Latina
+            </p>
+    
+            <p>
+              En <span class="custom-green">Ecuador</span> la energía renovable representa un 
+              <span class="custom-green-text">16.33%</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <script>
+      document.getElementById('countrySelect').addEventListener('change', function(e) {
+        console.log('País seleccionado:', e.target.value);
+      });
+    </script>
     {% endblock %}
     
   </main>
