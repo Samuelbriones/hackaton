@@ -4,7 +4,7 @@ class MainTemplateView(TemplateView):
     template_name = 'index.html'
     
 class TiendaTemplateView(TemplateView):
-    template_name = 'tienda.html'
+    template_name = 'map.html'
 
 class FertilizanteTemplateView(TemplateView):
     template_name = 'fertilizante.html'

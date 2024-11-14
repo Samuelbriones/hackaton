@@ -11,19 +11,87 @@
   <meta name="keywords" content="">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
+  {% comment %} <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> {% endcomment %}
 
   <!-- Vendor CSS Files -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/aos/aos.css" rel="stylesheet' %}">
-  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/aos/aos.css" rel="stylesheet' %}">
+  <link href="{% static '/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 70px; /* Ajusta este valor según la altura de tu navbar */
+    }
+  
+    @media (min-width: 992px) {
+      body {
+        padding-top: 90px; /* Ajuste para pantallas más grandes si el navbar es más alto */
+      }
+    }
+  
+    .header {
+      z-index: 1050; /* Asegura que el navbar esté sobre otros elementos */
+    }
+
+    #map-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+      background-color: #f5f5f5; /* Color de fondo opcional */
+    }
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .filter-container {
+      margin-bottom: 20px; /* Espaciado entre el slider y el mapa */
+    }
+  
+    #map-container {
+      width: 100%;
+      max-width: 960px; /* Limitar el ancho máximo */
+      height: 600px;
+      border: 1px solid #ddd; /* Opcional: borde para el mapa */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      background-color: #d4f1f9; /* Color celeste para el fondo del mapa */
+      position: relative; /* Asegura que los elementos hijos, como la leyenda, se posicionen en relación con este contenedor */
+    }
+  
+    #map-legend {
+      position: absolute; /* Posiciona la leyenda dentro del mapa */
+      bottom: 20px; /* Espaciado desde la parte inferior del mapa */
+      right: 20px; /* Espaciado desde la derecha */
+      background: white; /* Fondo blanco para legibilidad */
+      padding: 10px; /* Espaciado interno */
+      border-radius: 5px; /* Bordes redondeados */
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra para destacar la leyenda */
+      z-index: 1000; /* Asegura que esté por encima del mapa */
+    }
+  
+    #legend-scale div {
+      margin-bottom: 5px; /* Espaciado entre cada rango de la leyenda */
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  </style>
+  
 </head>
 
 <body class="index-page">
@@ -40,11 +108,11 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:index'%}" class="active">Inicio</a></li>
-          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:tienda'%}">Energia eolica</a></li>
+          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:map'%}">Acceso energético</a></li>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:fertilizante'%}">Energia Geotermica</a></li>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:team'%}">Team</a></li>
           <li><a href="#team"></a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          {% comment %} <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -60,41 +128,23 @@
               <li><a href="#">Dropdown 3</a></li>
               <li><a href="#">Dropdown 4</a></li>
             </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
+          </li> {% endcomment %}
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="index.html#about">Get Started</a>
 
     </div>
   </header>
 
   <main class="main">
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+    {% block content %}
 
-      <img src="{% static 'img/hero-bg.jpg'%}" alt="" data-aos="fade-in" class="">
-
-      <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <h2>Online Presence with Bethany</h2>
-            <p>We are team of talented designers making websites with Bootstrap</p>
-            <a href="#about" class="btn-get-started">Get Started</a>
-          </div>
-        </div>
-      </div>
-
-    </section><!-- /Hero Section -->
-
+    {% endblock %}
+    
   </main>
-
-  {% block content %}
-        
-  {% endblock %}
+ 
 
   <footer id="footer" class="footer light-background">
 
@@ -165,17 +215,17 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="{% static ' vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
-  <script src="{% static ' vendor/php-email-form/validate.js'%}"></script>
-  <script src="{% static ' vendor/aos/aos.js'%}"></script>
-  <script src="{% static ' vendor/glightbox/js/glightbox.min.js'%}"></script>
-  <script src="{% static ' vendor/purecounter/purecounter_vanilla.js'%}"></script>
-  <script src="{% static ' vendor/imagesloaded/imagesloaded.pkgd.min.js'%}"></script>
-  <script src="{% static ' vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
-  <script src="{% static ' vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js'%}"></script>
+  <script src="{% static 'vendor/aos/aos.js'%}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js'%}"></script>
+  <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js'%}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js'%}"></script>
 
   <!-- Main JS File -->
-  <script src="{% static 'js/main.js '%}"></script>
+  <script src="{% static '/js/main.js'%}"></script>
 
 </body>
 
