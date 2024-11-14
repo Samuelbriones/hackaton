@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'APP.Core',
-    
 ]
 
 MIDDLEWARE = [
@@ -78,10 +78,9 @@ WSGI_APPLICATION = 'hackaton.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://energy_n17j_user:QsmHFK9Mo1pbD6UlLC9TypaV8QzPcWsw@dpg-csr2el56l47c73die8dg-a.oregon-postgres.render.com/energy_n17j'
+    )
 }
 
 
