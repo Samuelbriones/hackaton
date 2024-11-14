@@ -6,9 +6,6 @@ class MainTemplateView(TemplateView):
 class TiendaTemplateView(TemplateView):
     template_name = 'map.html'
 
-class FertilizanteTemplateView(TemplateView):
-    template_name = 'fertilizante.html'
-    
 class TeamTemplateView(TemplateView):
     template_name = 'Team.html'
 

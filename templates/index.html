@@ -116,18 +116,30 @@
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-end">
-
-      <a href="{% url 'Core:index'%}" class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Energia sostenibles</h1>
-      </a>
+      <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'Core:index' %}" style="background-color: black; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold;">
+          ActioMeta
+        </a>
+        <!-- Otros elementos de la barra de navegación -->
+      </nav>
+      
+      <style>
+        .navbar {
+          display: flex;
+          align-items: center;
+        }
+      
+        .navbar-brand {
+          margin-right: auto;
+        }
+      </style>
+      
+      
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:index'%}" class="active">Inicio</a></li>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:map'%}">Acceso energético</a></li>
-          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:fertilizante'%}">Energia Geotermica</a></li>
           <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:team'%}">Team</a></li>
           <li><a href="#team"></a></li>
           {% comment %} <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -159,57 +171,6 @@
 
     {% block content %}
 
-    <section class="container mt-5">
-      <div class="row">
-        <!-- Columna izquierda -->
-        <div class="col-md-6">
-          <h2 class="custom-green mb-4">Analítica de la energía no renovable generada</h2>
-          
-          <div class="bg-custom-gray p-4 shadow-sm">
-            <div class="mb-3">
-              <label class="d-block fw-bold mb-2">2020</label>
-              <select class="form-select" id="countrySelect">
-                <option value="Ecuador">Ecuador</option>
-              </select>
-            </div>
-            
-            <div class="mt-4">
-              <p class="text-muted mb-2">Energía no renovable generada (TWh)</p>
-              <h3 class="display-6 fw-bold">6.45</h3>
-            </div>
-          </div>
-        </div>
-    
-        <!-- Columna derecha -->
-        <div class="col-md-6 d-flex align-items-center">
-          <div class="py-4">
-            <p class="mb-4">
-              Con la producción del último año de 
-              <span class="custom-green-text">6.45</span> TWh en energía no renovable, 
-              se necesitarían <span class="custom-green-text">7</span> plantas fotovoltaicas 
-              de <span class="custom-green-text">450</span> hectáreas para generar esa 
-              cantidad de energía al año de forma limpia.
-            </p>
-    
-            <p class="mb-4">
-              El consumo de 1 TWh equivale a iluminar 
-              <span class="custom-green-text">830,000</span> hogares en América Latina
-            </p>
-    
-            <p>
-              En <span class="custom-green">Ecuador</span> la energía renovable representa un 
-              <span class="custom-green-text">16.33%</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <script>
-      document.getElementById('countrySelect').addEventListener('change', function(e) {
-        console.log('País seleccionado:', e.target.value);
-      });
-    </script>
     {% endblock %}
     
   </main>
