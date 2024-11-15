@@ -10,5 +10,6 @@ urlpatterns = [
     path('Team/',Main.TeamTemplateView.as_view(), name= 'team'),
     path('prediction/', Main.PredictionTemplateView.as_view(), name = 'prediction'),
     path('CO2/', prediction_view, name='CO2'),
-    path('energy_data/', energy_data, name='energy')
+    path('energy_data/', energy_data, name='energy'),
+    path('table/', Main.TableTemplateView.as_view(), name='table'),
 ]

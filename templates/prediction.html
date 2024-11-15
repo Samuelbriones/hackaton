@@ -1,11 +1,12 @@
 <!-- templates/index.html -->
-{% extends 'index.html' %}  <!-- O el nombre de tu plantilla base si es diferente -->
+{% extends 'index.html' %}  
 {% load static %}
 
+
 {% block content %}
+<link href="{% static 'css/prediction.css' %}" rel="stylesheet">
 <div class="container">
     <h1>Predicciones de CO2</h1>
-
     <form id="predictionForm" onsubmit="submitData(event)">
         <table border="1">
             <thead>
@@ -41,7 +42,7 @@
                 </tr>
             </tbody>
         </table>
-        <button type="submit">Submit</button>
+        <button type="submit">Calcular</button>
     </form>
 
     <p>La emisión de CO2 será: <strong id="prediction">---</strong> kt.</p>

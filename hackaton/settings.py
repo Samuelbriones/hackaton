@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'hackaton.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://energy_n17j_user:QsmHFK9Mo1pbD6UlLC9TypaV8QzPcWsw@dpg-csr2el56l47c73die8dg-a.oregon-postgres.render.com/energy_n17j'
-#     )
-# }
+#DATABASES = {
+#    'default': dj_database_url.config(
+#        default='postgresql://energy_n17j_user:QsmHFK9Mo1pbD6UlLC9TypaV8QzPcWsw@dpg-csr2el56l47c73die8dg-a.oregon-postgres.render.com/energy_n17j'
+#    )
+#}
 
 DATABASES = {
     'default': {
