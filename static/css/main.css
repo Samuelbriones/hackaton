@@ -822,7 +822,6 @@ section,
 
 .section-title h2:after {
   content: "";
-  position: absolute;
   display: block;
   width: 50px;
   height: 3px;
@@ -1394,8 +1393,12 @@ section,
 }
 
 .team .member img {
-  border-radius: 15px;
-  overflow: hidden;
+  width: 150px; /* Ajusta el tamaño deseado */
+  height: 150px; /* Asegura proporciones iguales */
+  border-radius: 50%; /* Hace la imagen circular */
+  object-fit: cover; /* Asegura que la imagen no se deforme */
+  display: inline-block; /* Asegura un buen flujo si hay varias imágenes */
+  margin: 10px; /* Espacio entre imágenes */
 }
 
 .team .member .member-content {
