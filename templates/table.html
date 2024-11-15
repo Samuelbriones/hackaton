@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -41,3 +42,57 @@
     <script src="{% static "js/table.js" %}"></script>
 </body>
 </html>
+=======
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Comparativa de Energía y Emisiones</h1>
+
+        <!-- Filtros -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <label for="year-filter" class="form-label">Año:</label>
+                <select id="year-filter" class="form-select">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="country-filter-1" class="form-label">País 1:</label>
+                <select id="country-filter-1" class="form-select">
+                    <option value="">Seleccione un país</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="country-filter-2" class="form-label">País 2:</label>
+                <select id="country-filter-2" class="form-select">
+                    <option value="">Seleccione un país</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button id="filter-button" class="btn btn-secondary w-100">Aplicar Filtros</button>
+            </div>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" id="energy-table">
+                <thead class="table-blue">
+                    <tr>
+                        <th>Año</th>
+                        <th>Fósil (TWh)</th>
+                        <th>Nuclear (TWh)</th>
+                        <th>Renovable (TWh)</th>
+                        <th>Emisiones CO2 (kt)</th>
+                        <th>País</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{% static 'js/table.js' %}"></script>
+{% endblock content %}
