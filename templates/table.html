@@ -1,3 +1,48 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Data</title>
+</head>
+<body>
+    <h1>Comparativa de Energía y Emisiones</h1>
+
+    <!-- Filtros -->
+    <div>
+        <label for="year-filter">Año:</label>
+        <input type="number" id="year-filter" placeholder="Filtrar por año">
+
+        <label for="country-filter-1">País 1:</label>
+        <input type="text" id="country-filter-1" placeholder="País 1">
+
+        <label for="country-filter-2">País 2:</label>
+        <input type="text" id="country-filter-2" placeholder="País 2">
+
+        <button id="filter-button">Aplicar Filtros</button>
+    </div>
+
+    <!-- Tabla -->
+    <table border="1" id="energy-table">
+        <thead>
+            <tr>
+                <th>Año</th>
+                <th>Fósil</th>
+                <th>Nuclear</th>
+                <th>Renovable</th>
+                <th>Emisiones CO2</th>
+                <th>País</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="{% static "js/table.js" %}"></script>
+</body>
+</html>
+=======
 {% extends "index.html" %}
 
 {% load static %}

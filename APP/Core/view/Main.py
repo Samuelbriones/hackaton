@@ -1,4 +1,6 @@
 from django.views.generic import TemplateView
+from django.db.models import Max
+import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
@@ -7,6 +9,24 @@ from ..models import EnergyData
 
 class MainTemplateView(TemplateView):
     template_name = 'index.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        latest_year = EnergyData.objects.aggregate(Max('year'))['year__max']
+        items = EnergyData.objects.filter(year=latest_year).values(
+        'entity',
+        'electricity_from_fossil_fuels',
+        'electricity_from_nuclear',
+        'co2_emissions',
+        'renewables_equivalent'
+        )
+        try:
+            context["countries"] = list(items)
+            context["json"] = json.dumps(list(items))
+        except EnergyData.DoesNotExist:
+            context["countries"] = {"error": "data not found"}
+        return context
+
     
 class TiendaTemplateView(TemplateView):
     template_name = 'map.html'

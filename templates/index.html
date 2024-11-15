@@ -181,45 +181,72 @@
             <div class="mb-3">
               <label class="d-block fw-bold mb-2">2020</label>
               <select class="form-select" id="countrySelect">
-                <option value="Ecuador">Ecuador</option>
+                {% for item in countries %}
+                  <option value={{item.entity}}>{{item.entity}}</option>
+                {% endfor %}
               </select>
             </div>
             
             <div class="mt-4">
               <p class="text-muted mb-2">Energía no renovable generada (TWh)</p>
-              <h3 class="display-6 fw-bold">6.45</h3>
+              <h3 class="display-6 fw-bold" id="twh">6.45</h3>
             </div>
           </div>
         </div>
     
         <!-- Columna derecha -->
         <div class="col-md-6 d-flex align-items-center">
-          <div class="py-4">
-            <p class="mb-4">
-              Con la producción del último año de 
-              <span class="custom-green-text">6.45</span> TWh en energía no renovable, 
-              se necesitarían <span class="custom-green-text">7</span> plantas fotovoltaicas 
-              de <span class="custom-green-text">450</span> hectáreas para generar esa 
-              cantidad de energía al año de forma limpia.
-            </p>
-    
-            <p class="mb-4">
-              El consumo de 1 TWh equivale a iluminar 
-              <span class="custom-green-text">830,000</span> hogares en América Latina
-            </p>
-    
-            <p>
-              En <span class="custom-green">Ecuador</span> la energía renovable representa un 
-              <span class="custom-green-text">16.33%</span>
-            </p>
+          <div class="py-4", id="result-text">
           </div>
         </div>
       </div>
     </section>
     
     <script>
+      let data = '{{ json|safe }}';
+      data = data.replace(/NaN/g, 'null');
+      data = JSON.parse(data)
+      console.log(data)
       document.getElementById('countrySelect').addEventListener('change', function(e) {
-        console.log('País seleccionado:', e.target.value);
+      console.log('País seleccionado:', e.target.value);
+      let twh = document.getElementById('twh');
+      let resultText = document.getElementById('result-text');
+        const selectedCountry = countrySelect.value;
+              if (selectedCountry === "") {
+                  resultText.textContent = "Selecciona un país para ver el resultado.";
+                  return;
+              }
+              const countryData = data.find(item => item.entity === selectedCountry);
+              if (countryData) {
+                const energyRequiredTWh = countryData.electricity_from_fossil_fuels;
+                const plantCapacityWh = 1.23;
+                let numberOfPlants = energyRequiredTWh / plantCapacityWh;
+                console.log(numberOfPlants)
+                numberOfPlants = Math.ceil(numberOfPlants); 
+                resultText.innerHTML = `
+                <p class="mb-4">
+                  Con la producción del último año de 
+                  <span class="custom-green-text" id="twh">${countryData.electricity_from_fossil_fuels}</span> TWh en energía no renovable, 
+                  se necesitarían <span class="custom-green-text" id="num">${numberOfPlants}</span> plantas fotovoltaicas 
+                  de <span class="custom-green-text">450</span> hectáreas para generar esa 
+                  cantidad de energía al año de forma limpia.
+                </p>
+
+                <p class="mb-4">
+                  El consumo de 1 TWh equivale a iluminar
+                  <span class="custom-green-text">830,000</span> hogares en América Latina
+                </p>
+
+                <p>
+                  En <span class="custom-green">Ecuador</span> la energía renovable representa un 
+                  <span class="custom-green-text">${countryData.renewables_equivalent}%</span>
+                </p>
+              `;
+                twh.textContent = countryData.electricity_from_fossil_fuels;
+                num.textContent = numberOfPlants;
+              } else {
+                resultText.textContent = "Datos no disponibles para este país.";
+              }
       });
     </script>
     {% endblock %}

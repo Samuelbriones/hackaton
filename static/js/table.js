@@ -15,7 +15,6 @@ async function fetchEnergyData() {
     }
 }
 
-// Función para llenar los menús desplegables
 function populateFilters(data) {
     // Obtener años y países únicos
     const years = [...new Set(data.map(item => item.year))].sort((a, b) => a - b);
@@ -43,7 +42,6 @@ function populateFilters(data) {
     });
 }
 
-// Función para filtrar datos
 function filterData(data, year, country1, country2) {
     return data.filter(item => {
         const matchesYear = year ? item.year == year : true;
@@ -71,7 +69,6 @@ function renderTable(data) {
     });
 }
 
-
 // Manejar clic en el botón de filtro
 filterButton.addEventListener('click', async () => {
     const data = await fetchEnergyData();
@@ -84,7 +81,6 @@ filterButton.addEventListener('click', async () => {
     renderTable(filteredData);
 });
 
-// Cargar datos iniciales y llenar filtros
 (async () => {
     const data = await fetchEnergyData();
     populateFilters(data);
