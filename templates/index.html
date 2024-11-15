@@ -199,12 +199,22 @@
         <div class="col-md-6 d-flex align-items-center">
           <div class="py-4", id="result-text">
           </div>
+          
         </div>
+        <div id="chart-container">
+          <div id="donut-chart"></div>
+          <div id="legend-container"></div>
+        </div>
+        
+        
+
       </div>
     </section>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     
     <script>
-      let data = '{{ json|safe }}';
+       let data = '{{ json|safe }}';
       data = data.replace(/NaN/g, 'null');
       data = JSON.parse(data)
       console.log(data)
@@ -241,14 +251,115 @@
                 <p>
                   En <span class="custom-green">Ecuador</span> la energía renovable representa un 
                   <span class="custom-green-text">${countryData.renewables_equivalent}%</span>
-                </p>
-              `;
+                </p>`
+              ;
                 twh.textContent = countryData.electricity_from_fossil_fuels;
                 num.textContent = numberOfPlants;
               } else {
                 resultText.textContent = "Datos no disponibles para este país.";
               }
+              updateChart(countryData)
       });
+    
+      function updateChart(countryData) {
+  const width = 400, height = 400, margin = 40;
+  const radius = Math.min(width, height) / 2 - margin;
+
+  // Crear el SVG para el gráfico de dona
+  const svg = d3.select("#donut-chart")
+    .html("")  // Limpiar el gráfico anterior
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  // Definir el color
+  const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+  // Definir el arco para el gráfico de dona
+  const arc = d3.arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 100);
+
+  // Definir el generador de los arcos
+  const pie = d3.pie()
+    .value(d => d.value || 0)  // Si el valor es nulo, se convierte en 0
+    .sort(null);
+
+  // Crear los datos para el gráfico de dona
+  const pieData = [
+    { label: "capacidad de generación limpia", value: countryData.renewable_electricity_capacity },
+    { label: "acceso a energía limpia", value: countryData.access_to_clean_fuels },
+    { label: "energía baja en carbono", value: countryData.low_carbon_electricity }
+  ];
+
+  // Dibujar los arcos del gráfico de dona
+  const arcs = svg.selectAll(".arc")
+    .data(pie(pieData))
+    .enter().append("g")
+    .attr("class", "arc");
+
+  arcs.append("path")
+    .attr("d", arc)
+    .attr("fill", d => color(d.data.label));  // Asigna un color único a cada sector
+
+  // Mostrar los valores numéricos dentro de la dona
+  arcs.append("text")
+    .attr("transform", d => "translate(" + arc.centroid(d) + ")")
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")  // Ajuste de tamaño de la fuente
+    .style("fill", "#fff")  // Color de los números
+    .text(d => d.data.value ? d.data.value.toFixed(2) : 0);  // Mostrar el valor numérico con 2 decimales
+
+  // Crear la leyenda en el div
+  const legendContainer = d3.select("#legend-container");
+  legendContainer.html("");  // Limpiar la leyenda anterior
+
+  // Dibujar los elementos de la leyenda dentro del div
+  const legendItems = legendContainer.selectAll(".legend-item")
+    .data(pieData)
+    .enter().append("div")
+    .attr("class", "legend-item");
+
+  // Cuadrado de color en la leyenda
+  legendItems.append("svg")
+    .attr("width", 18)
+    .attr("height", 18)
+    .append("rect")
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", d => color(d.label));
+
+  // Descripción del segmento en la leyenda (solo texto corto)
+  legendItems.append("text")
+    .style("font-size", "12px")
+    .text(d => getShortDescription(d.label));
+}
+
+// Función para obtener una descripción corta
+function getShortDescription(label) {
+  switch (label) {
+    case "capacidad de generación limpia":
+      return "  Capacidad de generación limpia";
+    case "acceso a energía limpia":
+      return "  Acceso a energía limpia";
+    case "energía baja en carbono":
+      return "  Energía producida baja en CO₂";
+    default:
+      return "  Dato desconocido";
+  }
+}
+
+// Inicializar el gráfico con el primer país
+const initialCountryData = data[0];
+updateChart(initialCountryData);
+
+
+
+
+
     </script>
     {% endblock %}
     
