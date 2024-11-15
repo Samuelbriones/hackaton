@@ -4,45 +4,83 @@
 
 {% block content %}
 <div class="container">
-    <h1>Predicción de Emisiones de CO2</h1>
+    <h1>Predicciones de CO2</h1>
 
-    <h2>Datos de Entrada</h2>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Descripción</th>
-          <th>Valor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Acceso a electricidad (% de la población)</td>
-          <td>{{ access_electricity }}%</td>
-        </tr>
-        <tr>
-          <td>Acceso a combustibles limpios para cocinar</td>
-          <td>{{ access_clean_fuels }}%</td>
-        </tr>
-        <tr>
-          <td>Electricidad de fuentes fósiles (TWh)</td>
-          <td>{{ electricity_fossil }} TWh</td>
-        </tr>
-        <tr>
-          <td>Electricidad de fuentes renovables (TWh)</td>
-          <td>{{ electricity_renewables }} TWh</td>
-        </tr>
-        <tr>
-          <td>Electricidad de fuentes nucleares (TWh)</td>
-          <td>{{ electricity_nuclear }} TWh</td>
-        </tr>
-        <tr>
-          <td>Consumo energético primario per cápita (kWh/persona)</td>
-          <td>{{ energy_consumption }} kWh/persona</td>
-        </tr>
-      </tbody>
-    </table>
+    <form id="predictionForm" onsubmit="submitData(event)">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Acceso a la electricidad (% de población)</td>
+                    <td><input type="number" id="electricity" step="any" required> %</td>
+                </tr>
+                <tr>
+                    <td>Acceso a combustibles limpios para cocinar (%)</td>
+                    <td><input type="number" id="cleanFuels" step="any" required> %</td>
+                </tr>
+                <tr>
+                    <td>Electricidad de combustibles fosiles (TWh)</td>
+                    <td><input type="number" id="fossil" step="any" required> TWh</td>
+                </tr>
+                <tr>
+                    <td>Electricidad de energias renovables (TWh)</td>
+                    <td><input type="number" id="renewables" step="any" required> TWh</td>
+                </tr>
+                <tr>
+                    <td>Electricidad de fuentes nucleares (TWh)</td>
+                    <td><input type="number" id="nuclear" step="any" required> TWh</td>
+                </tr>
+                <tr>
+                    <td>Consumo de electricidad por persona (kWh/persona)</td>
+                    <td><input type="number" id="kWhPerPerson" step="any" required> kWh/person</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit">Submit</button>
+    </form>
 
-    <h2>Resultado de la Predicción</h2>
-    <p>La predicción de emisiones de CO2 es: <strong>{{ prediction }}</strong> kt.</p>
-  </div>
+    <p>La emisión de CO2 será: <strong id="prediction">---</strong> kt.</p>
+</div>
+
+<script>
+    async function submitData(event) {
+        event.preventDefault(); 
+
+        const data = {
+            electricity: parseFloat(document.getElementById('electricity').value),
+            clean_fuels: parseFloat(document.getElementById('cleanFuels').value),
+            fossil: parseFloat(document.getElementById('fossil').value),
+            renewables: parseFloat(document.getElementById('renewables').value),
+            nuclear: parseFloat(document.getElementById('nuclear').value),
+            kWh_per_person: parseFloat(document.getElementById('kWhPerPerson').value)
+        };
+
+        try {
+            const response = await fetch("{% url 'Core:CO2' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                console.log(result)
+                document.getElementById('prediction').innerText = result;
+            } else {
+                document.getElementById('prediction').innerText = 'Error: ' + result.error;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('prediction').innerText = 'Error submitting the request.';
+        }
+    }
+
+</script>
 {% endblock %}
