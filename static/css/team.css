@@ -1,11 +1,3 @@
 .team{
     text-align: left;
 }
-
-.custom-hr{
-    width: 50px; /* Ajusta el ancho */
-    height: 3px; /* Ajusta el grosor */
-    background-color: blue; /* Cambia el color */
-    border: none; /* Quita el estilo predeterminado del borde */
-    margin:  10px auto;
-}

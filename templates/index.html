@@ -153,9 +153,6 @@
       
       <nav id="navmenu" class="navmenu">
             <ul>
-            {% if request.path != '/' %}
-              <li><a href="{% url 'Core:index' %}">Inicio</a></li>
-            {% endif %}
             <li class="{% if request.path == '/map/' %}active{% endif %}"><a href="{% url 'Core:map' %}">Acceso energético</a></li>
             <li class="{% if request.path == '/prediction/' %}active{% endif %}"><a href="{% url 'Core:prediction' %}">Predicción de CO2</a></li>
             <li class="{% if request.path == '/table/' %}active{% endif %}"><a href="{% url 'Core:table' %}">Tabla de comparación</a></li>
@@ -173,31 +170,34 @@
 
     {% block content %}
     <section class="container mt-5">
-      <div class="row">
+      <div class="row d-flex align-items-center justify-content-center">
         <!-- Columna izquierda -->
-        <div class="col-md-6">
-          <h2 class="custom-green mb-4">Analítica de la energía no renovable generada</h2>
-          
-          <div class="bg-custom-gray p-4 shadow-sm">
-            <div class="mb-3">
-              <label class="d-block fw-bold mb-2">2020</label>
-              <select class="form-select" id="countrySelect">
-                {% for item in countries %}
-                  <option value={{item.entity}}>{{item.entity}}</option>
-                {% endfor %}
-              </select>
-            </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+          <div>
+            <h2 class="custom-green mb-4 text-center">Analítica de la energía no renovable generada</h2>
             
-            <div class="mt-4">
-              <p class="text-muted mb-2">Energía no renovable generada (TWh)</p>
-              <h3 class="display-6 fw-bold" id="twh">6.45</h3>
+            <div class="bg-custom-gray p-4 shadow-sm text-center">
+              <div class="mb-3">
+                <label class="d-block fw-bold mb-2">2020</label>
+                <select class="form-select" id="countrySelect">
+                  {% for item in countries %}
+                    <option value="{{ item.entity }}">{{ item.entity }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              
+              <div class="mt-4">
+                <p class="text-muted mb-2" style="text-align: center;">Energía no renovable generada (TWh)</p>
+                <h3 class="display-6 fw-bold" id="twh">6.45</h3>
+              </div>
             </div>
           </div>
         </div>
     
         <!-- Columna derecha -->
-        <div class="col-md-6 d-flex align-items-center">
-          <div class="py-4", id="result-text">
+        <div class="col-md-6 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+          <div id="result-text" class="text-center">
+            <p class="text-muted">Selecciona un país para ver el resultado.</p>
           </div>
         </div>
       </div>
@@ -255,7 +255,7 @@
   </main>
  
 
-  <footer id="footer" class="footer light-background">
+  <footer id="footer" class="footer">
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">UNEMI</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
