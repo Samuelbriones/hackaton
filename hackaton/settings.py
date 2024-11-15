@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-ja4@37qn&peu$^^kzob0-_w^&lqdh6w0a)0wkzjr6pg3b1$5*v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -77,18 +76,18 @@ WSGI_APPLICATION = 'hackaton.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://energy_n17j_user:QsmHFK9Mo1pbD6UlLC9TypaV8QzPcWsw@dpg-csr2el56l47c73die8dg-a.oregon-postgres.render.com/energy_n17j'
-#     )
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://energy_n17j_user:QsmHFK9Mo1pbD6UlLC9TypaV8QzPcWsw@dpg-csr2el56l47c73die8dg-a.oregon-postgres.render.com/energy_n17j'
+    )
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
 
 
 # Password validation
@@ -131,3 +130,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

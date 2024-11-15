@@ -1,0 +1,87 @@
+<!-- templates/index.html -->
+{% extends 'index.html' %}  
+{% load static %}
+
+
+{% block content %}
+<link href="{% static 'css/prediction.css' %}" rel="stylesheet">
+<div class="container">
+    <h2>Predicciones de CO2</h2>
+    <form id="predictionForm" onsubmit="submitData(event)">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Acceso a la electricidad (% de población)</td>
+                    <td><input type="number" id="electricity" step="any" required> %</td>
+                </tr>
+                <tr>
+                    <td>Acceso a combustibles limpios para cocinar (%)</td>
+                    <td><input type="number" id="cleanFuels" step="any" required> %</td>
+                </tr>
+                <tr>
+                    <td>Electricidad de combustibles fosiles (TWh)</td>
+                    <td><input type="number" id="fossil" step="any" required> TWh</td>
+                </tr>
+                <tr>
+                    <td>Electricidad de energias renovables (TWh)</td>
+                    <td><input type="number" id="renewables" step="any" required> TWh</td>
+                </tr>
+                <tr>
+                    <td>Electricidad de fuentes nucleares (TWh)</td>
+                    <td><input type="number" id="nuclear" step="any" required> TWh</td>
+                </tr>
+                <tr>
+                    <td>Consumo de electricidad por persona (kWh/persona)</td>
+                    <td><input type="number" id="kWhPerPerson" step="any" required> kWh/person</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit">Calcular</button>
+    </form>
+
+    <p>La emisión de CO2 será: <strong id="prediction">---</strong> kt.</p>
+</div>
+
+<script>
+    async function submitData(event) {
+        event.preventDefault(); 
+
+        const data = {
+            electricity: parseFloat(document.getElementById('electricity').value),
+            clean_fuels: parseFloat(document.getElementById('cleanFuels').value),
+            fossil: parseFloat(document.getElementById('fossil').value),
+            renewables: parseFloat(document.getElementById('renewables').value),
+            nuclear: parseFloat(document.getElementById('nuclear').value),
+            kWh_per_person: parseFloat(document.getElementById('kWhPerPerson').value)
+        };
+
+        try {
+            const response = await fetch("{% url 'Core:CO2' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                console.log(result)
+                document.getElementById('prediction').innerText = result;
+            } else {
+                document.getElementById('prediction').innerText = 'Error: ' + result.error;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('prediction').innerText = 'Error submitting the request.';
+        }
+    }
+
+</script>
+{% endblock %}

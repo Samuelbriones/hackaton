@@ -24,142 +24,141 @@
 
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <style>
-    body {
-      padding-top: 70px; /* Ajusta este valor según la altura de tu navbar */
-    }
-  
-    @media (min-width: 992px) {
-      body {
-        padding-top: 90px; /* Ajuste para pantallas más grandes si el navbar es más alto */
-      }
-    }
-  
-    .header {
-      z-index: 1050; /* Asegura que el navbar esté sobre otros elementos */
-    }
 
-    #map-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      min-height: 100vh; /* Ocupa toda la altura de la pantalla */
-      background-color: #f5f5f5; /* Color de fondo opcional */
-    }
-  
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .filter-container {
-      margin-bottom: 20px; /* Espaciado entre el slider y el mapa */
-    }
-  
-    #map-container {
-      width: 100%;
-      max-width: 960px; /* Limitar el ancho máximo */
-      height: 600px;
-      border: 1px solid #ddd; /* Opcional: borde para el mapa */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-      background-color: #d4f1f9; /* Color celeste para el fondo del mapa */
-      position: relative; /* Asegura que los elementos hijos, como la leyenda, se posicionen en relación con este contenedor */
-    }
-  
-    #map-legend {
-      position: absolute; /* Posiciona la leyenda dentro del mapa */
-      bottom: 20px; /* Espaciado desde la parte inferior del mapa */
-      right: 20px; /* Espaciado desde la derecha */
-      background: white; /* Fondo blanco para legibilidad */
-      padding: 10px; /* Espaciado interno */
-      border-radius: 5px; /* Bordes redondeados */
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra para destacar la leyenda */
-      z-index: 1000; /* Asegura que esté por encima del mapa */
-    }
-  
-    #legend-scale div {
-      margin-bottom: 5px; /* Espaciado entre cada rango de la leyenda */
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    .custom-green {
-      color: #009970 !important;
-    }
-    
-    .bg-custom-gray {
-      background-color: #f0f0f0 !important;
-      border-radius: 15px !important; /* Bordes más redondeados para el contenedor */
-    }
-    
-    .custom-green-text {
-      color: #009970 !important;
-      font-weight: bold;
-    }
-  
-    .form-select {
-      border-radius: 10px !important; /* Bordes redondeados para el select */
-    }
-  </style>
-  
 </head>
 
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-end">
-      <nav class="navbar">
-        <a class="navbar-brand" href="{% url 'Core:index' %}" style="background-color: black; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold;">
+      <nav class="boton">
+        <a class="navbotton" href="{% url 'Core:index' %}">
           ActioMeta
         </a>
-        <!-- Otros elementos de la barra de navegación -->
       </nav>
       
+      
       <style>
-        .navbar {
+        .boton {
+          padding: 0;
+          margin: 0;
           display: flex;
-          align-items: center;
+          justify-content: flex-start;
+          width: 100%; /* Ocupa todo el ancho disponible */
         }
       
-        .navbar-brand {
-          margin-right: auto;
+        .navbotton {
+          background-color: black;
+          color: white;
+          padding: 5px 15px;
+          border-radius: 5px;
+          font-weight: bold;
+          text-decoration: none;
+          margin: 0;
         }
+        
+        /* Elimina cualquier margen y padding predeterminado en el body y html */
+        body, html {
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          padding-top: 70px; 
+          margin: 0;
+          padding: 0;
+        }
+        
+        @media (min-width: 992px) {
+          body {
+            padding-top: 90px; /* Ajuste para pantallas más grandes si el navbar es más alto */
+          }
+        }
+        
+        .header {
+          z-index: 1050; /* Asegura que el navbar esté sobre otros elementos */
+        }
+        
+        #map-section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+          background-color: #ffff; /* Color de fondo opcional */
+        }
+        
+        .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+        
+        .filter-container {
+          margin-bottom: 20px; /* Espaciado entre el slider y el mapa */
+        }
+        
+        #map-container {
+          width: 100%;
+          max-width: 960px; /* Limitar el ancho máximo */
+          height: 600px;
+          border: 1px solid #ddd; /* Opcional: borde para el mapa */
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+          background-color: #d4f1f9; /* Color celeste para el fondo del mapa */
+          position: relative; /* Asegura que los elementos hijos, como la leyenda, se posicionen en relación con este contenedor */
+        }
+        
+        #map-legend {
+          position: absolute; /* Posiciona la leyenda dentro del mapa */
+          bottom: 20px; /* Espaciado desde la parte inferior del mapa */
+          right: 20px; /* Espaciado desde la derecha */
+          background: white; /* Fondo blanco para legibilidad */
+          padding: 10px; /* Espaciado interno */
+          border-radius: 5px; /* Bordes redondeados */
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra para destacar la leyenda */
+          z-index: 1000; /* Asegura que esté por encima del mapa */
+        }
+        
+        #legend-scale div {
+          margin-bottom: 5px; /* Espaciado entre cada rango de la leyenda */
+        }
+        
+        h2 {
+          font-size: 2rem;
+          margin-bottom: 20px;
+          color: #333;
+        }
+        
+        .custom-green {
+          color: #009970 !important;
+        }
+        
+        .bg-custom-gray {
+          background-color: #f0f0f0 !important;
+          border-radius: 15px !important; /* Bordes más redondeados para el contenedor */
+        }
+        
+        .custom-green-text {
+          color: #009970 !important;
+          font-weight: bold;
+        }
+        
+        .form-select {
+          border-radius: 10px !important; /* Bordes redondeados para el select */
+        }
+        
       </style>
       
-      
-
       <nav id="navmenu" class="navmenu">
-        <ul>
-          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:index'%}" class="active">Inicio</a></li>
-          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:map'%}">Acceso energético</a></li>
-          <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'Core:team'%}">Team</a></li>
-          <li><a href="#team"></a></li>
-          {% comment %} <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
+            <li class="{% if request.path == '/map/' %}active{% endif %}"><a href="{% url 'Core:map' %}">Acceso energético</a></li>
+            <li class="{% if request.path == '/prediction/' %}active{% endif %}"><a href="{% url 'Core:prediction' %}">Predicción de CO2</a></li>
+            <li class="{% if request.path == '/table/' %}active{% endif %}"><a href="{% url 'Core:table' %}">Tabla de comparación</a></li>
+            <li class="{% if request.path == '/team/' %}active{% endif %}"><a href="{% url 'Core:team' %}">Team</a></li>
             </ul>
-          </li> {% endcomment %}
-        </ul>
+
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
@@ -170,73 +169,212 @@
   <main class="main">
 
     {% block content %}
+    <section class="container mt-5">
+      <div class="row d-flex align-items-center justify-content-center">
+        <!-- Columna izquierda -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+          <div>
+            <h2 class="custom-green mb-4 text-center">Analítica de la energía no renovable generada</h2>
+            
+            <div class="bg-custom-gray p-4 shadow-sm text-center">
+              <div class="mb-3">
+                <label class="d-block fw-bold mb-2">2020</label>
+                <select class="form-select" id="countrySelect">
+                  {% for item in countries %}
+                    <option value="{{ item.entity }}">{{ item.entity }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              
+              <div class="mt-4">
+                <p class="text-muted mb-2" style="text-align: center;">Energía no renovable generada (TWh)</p>
+                <h3 class="display-6 fw-bold" id="twh">6.45</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Columna derecha -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+          <div id="result-text" class="text-center">
+            <p class="text-muted">Selecciona un país para ver el resultado.</p>
+          </div>
+          
+        </div>
+        <div id="chart-container">
+          <div id="donut-chart"></div>
+          <div id="legend-container"></div>
+        </div>
+        
+        
 
+      </div>
+    </section>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    
+    <script>
+       let data = '{{ json|safe }}';
+      data = data.replace(/NaN/g, 'null');
+      data = JSON.parse(data)
+      console.log(data)
+      document.getElementById('countrySelect').addEventListener('change', function(e) {
+      console.log('País seleccionado:', e.target.value);
+      let twh = document.getElementById('twh');
+      let resultText = document.getElementById('result-text');
+        const selectedCountry = countrySelect.value;
+              if (selectedCountry === "") {
+                  resultText.textContent = "Selecciona un país para ver el resultado.";
+                  return;
+              }
+              const countryData = data.find(item => item.entity === selectedCountry);
+              if (countryData) {
+                const energyRequiredTWh = countryData.electricity_from_fossil_fuels;
+                const plantCapacityWh = 1.23;
+                let numberOfPlants = energyRequiredTWh / plantCapacityWh;
+                console.log(numberOfPlants)
+                numberOfPlants = Math.ceil(numberOfPlants); 
+                resultText.innerHTML = `
+                <p class="mb-4">
+                  Con la producción del último año de 
+                  <span class="custom-green-text" id="twh">${countryData.electricity_from_fossil_fuels}</span> TWh en energía no renovable, 
+                  se necesitarían <span class="custom-green-text" id="num">${numberOfPlants}</span> plantas fotovoltaicas 
+                  de <span class="custom-green-text">450</span> hectáreas para generar esa 
+                  cantidad de energía al año de forma limpia.
+                </p>
+
+                <p class="mb-4">
+                  El consumo de 1 TWh equivale a iluminar
+                  <span class="custom-green-text">830,000</span> hogares en América Latina
+                </p>
+
+                <p>
+                  En <span class="custom-green">Ecuador</span> la energía renovable representa un 
+                  <span class="custom-green-text">${countryData.renewables_equivalent}%</span>
+                </p>`
+              ;
+                twh.textContent = countryData.electricity_from_fossil_fuels;
+                num.textContent = numberOfPlants;
+              } else {
+                resultText.textContent = "Datos no disponibles para este país.";
+              }
+              updateChart(countryData)
+      });
+    
+      function updateChart(countryData) {
+  const width = 400, height = 400, margin = 40;
+  const radius = Math.min(width, height) / 2 - margin;
+
+  // Crear el SVG para el gráfico de dona
+  const svg = d3.select("#donut-chart")
+    .html("")  // Limpiar el gráfico anterior
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  // Definir el color
+  const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+  // Definir el arco para el gráfico de dona
+  const arc = d3.arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 100);
+
+  // Definir el generador de los arcos
+  const pie = d3.pie()
+    .value(d => d.value || 0)  // Si el valor es nulo, se convierte en 0
+    .sort(null);
+
+  // Crear los datos para el gráfico de dona
+  const pieData = [
+    { label: "capacidad de generación limpia", value: countryData.renewable_electricity_capacity },
+    { label: "acceso a energía limpia", value: countryData.access_to_clean_fuels },
+    { label: "energía baja en carbono", value: countryData.low_carbon_electricity }
+  ];
+
+  // Dibujar los arcos del gráfico de dona
+  const arcs = svg.selectAll(".arc")
+    .data(pie(pieData))
+    .enter().append("g")
+    .attr("class", "arc");
+
+  arcs.append("path")
+    .attr("d", arc)
+    .attr("fill", d => color(d.data.label));  // Asigna un color único a cada sector
+
+  // Mostrar los valores numéricos dentro de la dona
+  arcs.append("text")
+    .attr("transform", d => "translate(" + arc.centroid(d) + ")")
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")  // Ajuste de tamaño de la fuente
+    .style("fill", "#fff")  // Color de los números
+    .text(d => d.data.value ? d.data.value.toFixed(2) : 0);  // Mostrar el valor numérico con 2 decimales
+
+  // Crear la leyenda en el div
+  const legendContainer = d3.select("#legend-container");
+  legendContainer.html("");  // Limpiar la leyenda anterior
+
+  // Dibujar los elementos de la leyenda dentro del div
+  const legendItems = legendContainer.selectAll(".legend-item")
+    .data(pieData)
+    .enter().append("div")
+    .attr("class", "legend-item");
+
+  // Cuadrado de color en la leyenda
+  legendItems.append("svg")
+    .attr("width", 18)
+    .attr("height", 18)
+    .append("rect")
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", d => color(d.label));
+
+  // Descripción del segmento en la leyenda (solo texto corto)
+  legendItems.append("text")
+    .style("font-size", "12px")
+    .text(d => getShortDescription(d.label));
+}
+
+// Función para obtener una descripción corta
+function getShortDescription(label) {
+  switch (label) {
+    case "capacidad de generación limpia":
+      return "  Capacidad de generación limpia";
+    case "acceso a energía limpia":
+      return "  Acceso a energía limpia";
+    case "energía baja en carbono":
+      return "  Energía producida baja en CO₂";
+    default:
+      return "  Dato desconocido";
+  }
+}
+
+// Inicializar el gráfico con el primer país
+const initialCountryData = data[0];
+updateChart(initialCountryData);
+
+
+
+
+
+    </script>
     {% endblock %}
     
   </main>
  
 
-  <footer id="footer" class="footer light-background">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Bethany</span>
-          </a>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Contact Us</h4>
-          <p>A108 Adam Street</p>
-          <p>New York, NY 535022</p>
-          <p>United States</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          <p><strong>Email:</strong> <span>info@example.com</span></p>
-        </div>
-
-      </div>
-    </div>
-
-
-
+  <footer id="footer" class="footer">
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Bethany</strong> <span>All Rights Reserved</span></p>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">UNEMI</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://www.unemi.edu.ec/" target="_blank">Universidad Estatal de Milagro</a>
       </div>
     </div>
-
   </footer>
+  
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
