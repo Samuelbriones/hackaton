@@ -8,6 +8,9 @@ class TiendaTemplateView(TemplateView):
 
 class TeamTemplateView(TemplateView):
     template_name = 'Team.html'
+    
+class PredictionTemplateView(TemplateView):
+    template_name ='prediction.html'
 
 # class Tienda2TemplateView(TeamTemplateView):
 #     template_name = 'index2.html'
