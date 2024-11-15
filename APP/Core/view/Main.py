@@ -17,6 +17,9 @@ class TeamTemplateView(TemplateView):
 class PredictionTemplateView(TemplateView):
     template_name ='prediction.html'
     
+class TableTemplateView(TemplateView):
+    template_name='table.html'
+    
 @csrf_exempt
 @require_POST
 def prediction_view(request):
