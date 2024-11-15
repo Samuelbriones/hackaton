@@ -7,10 +7,10 @@ django.setup()
 
 from APP.Core.models import EnergyData 
 
-# Leer el archivo CSV
-df = pd.read_csv('C:\\Users\\SEMILLERO\\Documents\\HACKATON\\hackaton\\data.csv')
+file = model = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data.csv') 
 
-# Iterar sobre cada fila y guardar en la base de datos
+df = pd.read_csv(file)
+
 for _, row in df.iterrows():
     EnergyData.objects.create(
         entity=row['Entity'],

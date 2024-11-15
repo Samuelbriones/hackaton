@@ -1,8 +1,9 @@
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 import json
+from ..models import EnergyData
 
 class MainTemplateView(TemplateView):
     template_name = 'index.html'
@@ -43,3 +44,19 @@ def prediction_view(request):
     except Exception as e:
         print(e)
         return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_GET
+def energy_data(request):
+    try:
+        objects = list(EnergyData.objects.values('entity', 'year',
+                                            'electricity_from_fossil_fuels',
+                                            'electricity_from_nuclear',
+                                            'electricity_from_renewables',
+                                            'co2_emissions'))
+        
+        return JsonResponse(objects, safe=False, status=200)
+    except Exception as e:
+        print(e)
+        return JsonResponse({'error': str(e)}, status=500)
+    

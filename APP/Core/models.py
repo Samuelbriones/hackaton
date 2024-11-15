@@ -25,3 +25,4 @@ class EnergyData(models.Model):
     
     def __str__(self):
         return f"{self.entity} - {self.year}"
+    
