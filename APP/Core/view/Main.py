@@ -18,7 +18,10 @@ class MainTemplateView(TemplateView):
         'electricity_from_fossil_fuels',
         'electricity_from_nuclear',
         'co2_emissions',
-        'renewables_equivalent'
+        'renewables_equivalent',
+        'renewable_electricity_capacity',
+        'access_to_clean_fuels',
+        'low_carbon_electricity'
         )
         try:
             context["countries"] = list(items)
@@ -32,7 +35,7 @@ class TiendaTemplateView(TemplateView):
     template_name = 'map.html'
 
 class TeamTemplateView(TemplateView):
-    template_name = 'Team.html'
+    template_name = 'team.html'
     
 class PredictionTemplateView(TemplateView):
     template_name ='prediction.html'
