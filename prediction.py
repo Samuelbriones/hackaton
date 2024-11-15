@@ -1,21 +1,27 @@
 import pandas as pd
-
-# Datos de ejemplo para predicción
-new_data = {
-    'Access to electricity (% of population)': [100.0],
-    'Access to clean fuels for cooking' : [100.0],
-    'Electricity from fossil fuels (TWh)': [1.0],
-    'Electricity from renewables (TWh)': [20.0],
-    'Electricity from nuclear (TWh)': [20.0],
-    'Primary energy consumption per capita (kWh/person)': [1000.0],
-}
-
-new_data_df = pd.DataFrame(new_data)
-
+import os
 import joblib
 
-loaded_model = joblib.load('co2_model.pkl')
+def CO2_prediction (electricity: float, clean_fuels: float, fossil: float, 
+                    renewables: float, nuclear: float, kWh_per_person: float):
+    
+    model = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'co2_model.pkl') 
 
-predictions = loaded_model.predict(new_data_df)
+    new_data = {
+        'Access to electricity (% of population)': [electricity],
+        'Access to clean fuels for cooking' : [clean_fuels],
+        'Electricity from fossil fuels (TWh)': [fossil],
+        'Electricity from renewables (TWh)': [renewables],
+        'Electricity from nuclear (TWh)': [nuclear],
+        'Primary energy consumption per capita (kWh/person)': [kWh_per_person],
+    }
 
-print("Predicciones de emisiones de CO2 (kt):", predictions)
+    new_data_df = pd.DataFrame(new_data)
+
+    loaded_model = joblib.load(model)
+
+    predictions = loaded_model.predict(new_data_df)
+
+    print("Predicciones de emisiones de CO2 (kt):", predictions)
+    
+    return predictions[0]
