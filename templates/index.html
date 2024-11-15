@@ -158,6 +158,7 @@
             {% endif %}
             <li class="{% if request.path == '/map/' %}active{% endif %}"><a href="{% url 'Core:map' %}">Acceso energético</a></li>
             <li class="{% if request.path == '/prediction/' %}active{% endif %}"><a href="{% url 'Core:prediction' %}">Predicción de CO2</a></li>
+            <li class="{% if request.path == '/table/' %}active{% endif %}"><a href="{% url 'Core:table' %}">Tabla de comparación</a></li>
             <li class="{% if request.path == '/team/' %}active{% endif %}"><a href="{% url 'Core:team' %}">Team</a></li>
             </ul>
 
