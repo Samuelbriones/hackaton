@@ -11,8 +11,6 @@ body {
     margin-top: 100px; /* Mueve el contenedor más abajo */
     margin-left: auto;
     margin-right: auto;
-    background: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     text-align: center;
@@ -23,6 +21,10 @@ h1 {
     font-weight: bold; /* Hacerla más gruesa */
     margin-bottom: 30px;
     color: #070707;
+}
+
+p{
+    margin-top: 10px;
 }
 
 
